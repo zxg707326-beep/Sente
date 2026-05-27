@@ -16,7 +16,9 @@ function App() {
   const [perfumes, setPerfumes] = useState([]);
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+  return localStorage.getItem("darkMode") === "true";
+});
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const navigate = useNavigate();
 
@@ -102,7 +104,11 @@ function App() {
           ))}
           <div style={{ marginTop: "auto" }}>
             <button
-              onClick={() => setDarkMode(!darkMode)}
+             onClick={() => {
+  const newMode = !darkMode;
+  setDarkMode(newMode);
+  localStorage.setItem("darkMode", newMode);
+}}
               style={{ background: "none", border: `1px solid ${border}`, borderRadius: "8px", padding: "0.5rem 0.8rem", color: sub, fontFamily: "'DM Mono', monospace", fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", width: "100%" }}
             >
               {darkMode ? "Light Mode" : "Dark Mode"}
@@ -267,7 +273,11 @@ function App() {
                 {[
                   { label: "Profile", sub: "Username and display name", icon: "◯" },
                   { label: "History", sub: "Your reviewed fragrances", icon: "◎" },
-                  { label: "Appearance", sub: darkMode ? "Currently dark" : "Currently light", icon: "◑", action: () => setDarkMode(!darkMode) },
+                  { label: "Appearance", sub: darkMode ? "Currently dark" : "Currently light", icon: "◑", action: () => {
+  const newMode = !darkMode;
+  setDarkMode(newMode);
+  localStorage.setItem("darkMode", newMode);
+}},
                   { label: "Subscription", sub: "Coming soon", icon: "◆" },
                 ].map((item, i) => (
                   <div

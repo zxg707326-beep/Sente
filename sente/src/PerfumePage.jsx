@@ -35,6 +35,15 @@ const COLLECTIONS = [
 export default function PerfumePage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [darkMode] = useState(() => localStorage.getItem("darkMode") === "true");
+
+const bg = darkMode ? "#0c0c0c" : "#d4edda";
+const surface = darkMode ? "#111" : "#c8e6ce";
+const border = darkMode ? "#1a1a1a" : "#b8d4bd";
+const text = darkMode ? "#e8dcc8" : "#1a3a2a";
+const sub = darkMode ? "#5a5a5a" : "#5a8a6a";
+const accent = "#2d6a4f";
+
   const [perfume, setPerfume] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [user, setUser] = useState(null);
@@ -45,12 +54,7 @@ export default function PerfumePage() {
   const [savedCollections, setSavedCollections] = useState([]);
   const [avgRating, setAvgRating] = useState(0);
 
-  const bg = "#d4edda";
-  const surface = "#c8e6ce";
-  const border = "#b8d4bd";
-  const text = "#1a3a2a";
-  const sub = "#5a8a6a";
-  const accent = "#2d6a4f";
+  
 
   useEffect(() => {
     async function load() {
